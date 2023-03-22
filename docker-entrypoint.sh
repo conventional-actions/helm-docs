@@ -1,3 +1,3 @@
 #!/usr/bin/env sh
 
-helm-docs "$*"
+helm-docs "$@"
