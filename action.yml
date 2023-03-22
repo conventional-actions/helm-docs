@@ -39,7 +39,7 @@ runs:
   image: 'Dockerfile'
   args:
     - "-c"
-    - "${{ inputs.chart }}"
+    - "${{ inputs.chart-search-root }}"
     - "-b"
     - "${{ inputs.badge-style }}"
     - "-i"
