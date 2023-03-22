@@ -2,15 +2,58 @@ name: 'helm-docs'
 description: 'Run Helm Docs'
 author: 'Conventional Actions'
 inputs:
-  chart:
+  chart-search-root:
+    description: 'directory to search recursively within for charts'
     required: false
-    description: 'Path to the chart directory'
-    default: .
+    default: '.'
+  badge-style:
+    description: 'badge style to use for charts'
+    required: false
+    default: 'flat-square'
+  ignore-file:
+    description: 'The filename to use as an ignore file to exclude chart directories'
+    required: false
+    default: '.helmdocsignore'
+  log-level:
+    description: 'Level of logs that should printed, one of (panic, fatal, error, warning, info, debug, trace)'
+    required: false
+    default: 'info'
+  output-file:
+    description: 'markdown file path relative to each chart directory to which rendered documentation will be written'
+    required: false
+    default: "README.md"
+  sort-values-order:
+    description: 'order in which to sort the values table ("alphanum" or "file")'
+    required: false
+    default: "alphanum"
+  template-files:
+    description: 'gotemplate file paths relative to each chart directory from which documentation will be generated'
+    required: false
+    default: 'README.md.gotmpl'
+  values-file:
+    description: 'Path to values file'
+    required: false
+    default: "values.yaml"
 runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.chart }}
+    - "-c"
+    - "${{ inputs.chart }}"
+    - "-b"
+    - "${{ inputs.badge-style }}"
+    - "-i"
+    - "${{ inputs.ignore-file }}"
+    - "-l"
+    - "${{ inputs.log-level }}"
+    - "-o"
+    - "${{ inputs.output-file }}"
+    - "-s"
+    - "${{ inputs.sort-values-order }}"
+    - "-t"
+    - "${{ inputs.template-files }}"
+    - "-f"
+    - "${{ inputs.values-file }}"
 branding:
   icon: hash
   color: purple
