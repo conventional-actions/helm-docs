@@ -1,0 +1,16 @@
+name: 'helm-docs'
+description: 'Run Helm Docs'
+author: 'Conventional Actions'
+inputs:
+  chart:
+    required: false
+    description: 'Path to the chart directory'
+    default: .
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.chart }}
+branding:
+  icon: hash
+  color: purple
